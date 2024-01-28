@@ -11,8 +11,8 @@ const DATABASE_URL = "postgres://windmill:" + DB_PASSWORD + "@" + DB_HOST + ":54
 const DOCKER_REGISTRY = "ghcr.io";
 const DOCKER_USER = "windmill-labs";
 const DOCKER_TAG = "1.254";
-const DOCKER_IMAGE = DOCKER_USER + "/windmill:" + DOCKER_TAG;
-const DOCKER_IMAGE_LSP = DOCKER_USER + "/windmill-lsp:" + DOCKER_TAG;
+const DOCKER_IMAGE = DOCKER_REGISTRY + "/" + DOCKER_USER + "/windmill:" + DOCKER_TAG;
+const DOCKER_IMAGE_LSP = DOCKER_REGISTRY + "/" + DOCKER_USER + "/windmill-lsp:" + DOCKER_TAG;
 const CP_LINKS = [
     "pgpool:pgpool",
     "sqldb:postgresql"
@@ -27,9 +27,6 @@ const serverConfig = {
         DATABASE_URL: DATABASE_URL,
         MODE: "server",
         JSON_FMT: "true",
-    },
-    registry:{
-        url: DOCKER_REGISTRY
     },
     image: DOCKER_IMAGE,
     cloudlets: 8,
@@ -52,14 +49,11 @@ const defaultWorkerConfig = {
         MODE: "worker",
         JSON_FMT: "true",
     },
-    registry:{
-        url: DOCKER_REGISTRY
-    },
     image: DOCKER_IMAGE,
     volumes: [
         "/tmp/windmill/cache"
     ],
-    volumeMounts:{
+    volumeMounts: {
         "/tmp/windmill/cache": {
             protocol: "NFS",
             sourcePath: "/data/windmill/cache",
@@ -86,14 +80,11 @@ const nativeWorkerConfig = {
         MODE: "worker",
         JSON_FMT: "false",
     },
-    registry:{
-        url: DOCKER_REGISTRY
-    },
     image: DOCKER_IMAGE,
     volumes: [
         "/tmp/windmill/cache"
     ],
-    volumeMounts:{
+    volumeMounts: {
         "/tmp/windmill/cache": {
             protocol: "NFS",
             sourcePath: "/data/windmill/cache",
@@ -120,14 +111,11 @@ const reportWorkerConfig = {
         MODE: "report",
         JSON_FMT: "true",
     },
-    registry:{
-        url: DOCKER_REGISTRY
-    },
     image: DOCKER_IMAGE,
     volumes: [
         "/tmp/windmill/cache"
     ],
-    volumeMounts:{
+    volumeMounts: {
         "/tmp/windmill/cache": {
             protocol: "NFS",
             sourcePath: "/data/windmill/cache",
