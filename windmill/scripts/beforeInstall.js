@@ -7,7 +7,7 @@ const isProd = '${settings.deploymentType}' == 'production';
 const nodeCount = isProd ? 2 : 1;
 const DB_HOST = isProd ? "pgpool" : "postgresql";
 const DB_PASSWORD = '${globals.dbPassword}';
-const DATABASE_URL = `postgres://windmill:${DB_PASSWORD}@${DB_HOST}:5432/windmill`;
+const DATABASE_URL = "postgres://windmill:" + DB_PASSWORD + "@" + DB_HOST + ":5432/windmill";
 
 // Server node configuration
 const serverConfig = {
