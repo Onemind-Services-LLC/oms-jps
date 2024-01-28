@@ -40,7 +40,7 @@ resp.nodes.push(serverConfig);
 // Worker node configuration
 const defaultWorkerConfig = {
     nodeType: "docker",
-    displayName: "Worker",
+    displayName: "Default Worker",
     count: '${settings.workerDefault}',
     env: {
         DATABASE_URL: DATABASE_URL,

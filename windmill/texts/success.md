@@ -1,1 +1,1 @@
-Access URL: [${env.url}](${env.url}user/login?email=${user.email}&password=${globals.userPassword})
+Access URL: [${env.url}](${env.url}user/login?email=admin@windmill.dev&password=changeme)
