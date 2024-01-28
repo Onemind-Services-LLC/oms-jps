@@ -8,6 +8,9 @@ const nodeCount = isProd ? 2 : 1;
 const DB_HOST = isProd ? "pgpool" : "postgresql";
 const DB_PASSWORD = '${globals.dbPassword}';
 const DATABASE_URL = "postgres://windmill:" + DB_PASSWORD + "@" + DB_HOST + ":5432/windmill";
+const DOCKER_REGISTRY = "ghcr.io";
+const DOCKER_USER = "windmill-labs";
+const DOCKER_TAG = "1.254";
 
 // Server node configuration
 const serverConfig = {
@@ -18,7 +21,13 @@ const serverConfig = {
         DATABASE_URL: DATABASE_URL,
         MODE: "server",
         JSON_FMT: "true",
-    }
+    },
+    image: DOCKER_REGISTRY + "/" + DOCKER_USER + "/windmill:" + DOCKER_TAG,
+    cloudlets: 8,
+    diskLimit: 10,
+    scalingMode: 'STATELESS',
+    isSLBAccessEnabled: false,
+    nodeGroup: "cp",
 }
 resp.nodes.push(serverConfig);
 
