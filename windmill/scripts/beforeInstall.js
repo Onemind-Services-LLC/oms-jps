@@ -200,7 +200,7 @@ const nginxConfig = {
     cloudlets: 8,
     diskLimit: 10,
     scalingMode: isProd ? "STATEFUL" : "STATELESS",
-    isSLBAccessEnabled: !isProd,
+    isSLBAccessEnabled: true,
     nodeGroup: "bl",
     displayName: "Load Balancer"
 };
