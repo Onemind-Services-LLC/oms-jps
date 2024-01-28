@@ -1,0 +1,20 @@
+fields:
+  - name: deploymentType
+    type: list
+    caption: Deployment Type
+    tooltip: Development is for a single node setup and production are for multi-node setups
+    values:
+      - value: development
+        caption: Development
+      - value: production
+        caption: Production
+    default: development
+
+  - name: dbDiskLimit
+    type: spinner
+    caption: Database Disk Size
+    tooltip: Size of the database disk in GB
+    default: 10
+    required: true
+    editable: true
+    min: 1

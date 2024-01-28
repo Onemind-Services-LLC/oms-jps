@@ -1,0 +1,24 @@
+type: install
+id: windmill
+name: Windmill
+homepage: https://windmill.dev/
+
+categories:
+  - apps/dev-and-admin-tools
+
+description:
+  text: "/texts/description.md?_r=${fn.random}"
+  short: Developer platform for APIs, critical jobs, workflows, data pipelines and UIs.
+
+logo: https://www.windmill.dev/img/windmill.svg
+baseUrl: https://raw.githubusercontent.com/Onemind-Services-LLC/oms-jps/master
+
+onBeforeInit: /scripts/beforeInit.js?_r=${fn.random}
+onBeforeInstall: /scripts/beforeInstall.js?_r=${fn.random}
+
+globals:
+  dbPassword: ${fn.password}
+
+nodes: definedInOnBeforeInstall
+
+success: /texts/success.md?_r=${fn.random}
