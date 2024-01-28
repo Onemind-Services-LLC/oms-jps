@@ -123,5 +123,5 @@ const nginxConfig = {
     displayName: "Load Balancer"
 };
 resp.nodes.push(nginxConfig);
-
+resp.ssl = true;
 return resp;
