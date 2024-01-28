@@ -24,7 +24,12 @@ nodes: definedInOnBeforeInstall
 onInstall:
   - addLimits
   - createDb
-  - env.control.ExecDockerRunCmd [cp, cp2, cp3, cp4]
+  - forEach(env.nodes):
+      if ("${@i.nodeGroup}".includes("cp")):
+        set:
+          cpAllNodeIds: ${@i.id}${this.sep:}${this.cpAllNodeIds:}
+          sep: ','
+  - env.control.ExecDockerRunCmd [${this.cpAllNodeIds}]
 
 actions:
   addLimits:

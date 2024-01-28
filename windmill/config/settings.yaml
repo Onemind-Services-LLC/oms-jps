@@ -19,6 +19,15 @@ fields:
     editable: true
     min: 1
 
+  - name: storageDiskLimit
+    type: spinner
+    caption: Storage Disk Size
+    tooltip: Size of the storage disk in GB
+    default: 100
+    required: true
+    editable: true
+    min: 1
+
   - name: workerDefault
     type: spinner
     caption: Default Worker
