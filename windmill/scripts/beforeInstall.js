@@ -11,6 +11,11 @@ const DATABASE_URL = "postgres://windmill:" + DB_PASSWORD + "@" + DB_HOST + ":54
 const DOCKER_REGISTRY = "ghcr.io";
 const DOCKER_USER = "windmill-labs";
 const DOCKER_TAG = "1.254";
+const DOCKER_IMAGE = DOCKER_REGISTRY + "/" + DOCKER_USER + "/windmill:" + DOCKER_TAG;
+const CP_LINKS = [
+    "pgpool:pgpool",
+    "sqldb:postgresql"
+];
 
 // Server node configuration
 const serverConfig = {
@@ -22,18 +27,73 @@ const serverConfig = {
         MODE: "server",
         JSON_FMT: "true",
     },
-    image: DOCKER_REGISTRY + "/" + DOCKER_USER + "/windmill:" + DOCKER_TAG,
+    image: DOCKER_IMAGE,
     cloudlets: 8,
     diskLimit: 10,
     scalingMode: 'STATELESS',
     isSLBAccessEnabled: false,
     nodeGroup: "cp",
-    links: [
-        "pgpool:pgpool",
-        "sqldb:postgresql"
-    ]
+    links: CP_LINKS
 }
 resp.nodes.push(serverConfig);
+
+// Worker node configuration
+const defaultWorkerConfig = {
+    nodeType: "docker",
+    displayName: "Worker",
+    count: '${settings.workerDefault}',
+    env: {
+        DATABASE_URL: DATABASE_URL,
+        MODE: "worker",
+        JSON_FMT: "true",
+    },
+    image: DOCKER_IMAGE,
+    cloudlets: 8,
+    diskLimit: 10,
+    scalingMode: 'STATELESS',
+    isSLBAccessEnabled: false,
+    nodeGroup: "cp2",
+    links: CP_LINKS
+};
+resp.nodes.push(defaultWorkerConfig);
+
+const nativeWorkerConfig = {
+    nodeType: "docker",
+    displayName: "Native Worker",
+    count: '${settings.workerNative}',
+    env: {
+        DATABASE_URL: DATABASE_URL,
+        MODE: "worker",
+        JSON_FMT: "false",
+    },
+    image: DOCKER_IMAGE,
+    cloudlets: 8,
+    diskLimit: 10,
+    scalingMode: 'STATELESS',
+    isSLBAccessEnabled: false,
+    nodeGroup: "cp3",
+    links: CP_LINKS
+};
+resp.nodes.push(nativeWorkerConfig);
+
+const reportWorkerConfig = {
+    nodeType: "docker",
+    displayName: "Report Worker",
+    count: '${settings.workerReport}',
+    env: {
+        DATABASE_URL: DATABASE_URL,
+        MODE: "report",
+        JSON_FMT: "true",
+    },
+    image: DOCKER_IMAGE,
+    cloudlets: 8,
+    diskLimit: 10,
+    scalingMode: 'STATELESS',
+    isSLBAccessEnabled: false,
+    nodeGroup: "cp4",
+    links: CP_LINKS
+};
+resp.nodes.push(reportWorkerConfig);
 
 // PostgreSQL node configuration
 const pgsqlConfig = {
