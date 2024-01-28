@@ -32,6 +32,7 @@ onInstall:
   - env.control.ExecDockerRunCmd [${this.cpAllNodeIds}]
   - cmd[${nodes.cp.master.id}]: |-
       while ! curl -s http://localhost:8000; do sleep 1; done
+  - nginxConfig
 
 actions:
   addLimits:
@@ -49,5 +50,24 @@ actions:
         psql -U webadmin -d postgres -c "GRANT windmill_user TO windmill;"
         psql -U webadmin -d postgres -c "ALTER DATABASE windmill OWNER TO windmill;"
         psql -U webadmin -d postgres -c "GRANT CREATE ON SCHEMA public TO windmill;"
+
+  nginxConfig:
+    - replaceInFile:
+        nodeMission: bl
+        path: /etc/nginx/nginx-jelastic.conf
+        replacements:
+          - pattern: large_client_header_buffers [0-9]* [0-9]*k;
+            replacement: large_client_header_buffers 4 64k;
+
+    - upload:
+        - nodeGroup: bl
+          sourcePath: ${baseUrl}/config/bl-lsp.conf
+          targetPath: /tmp/bl-lsp.conf
+
+    - cmd[bl]: |-
+        sed -i '/location \/ {/e cat /tmp/bl-lsp.conf' nginx.conf
+
+    - restartContainers:
+        nodeGroup: bl
 
 success: /texts/success.md?_r=${fn.random}

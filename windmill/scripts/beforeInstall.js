@@ -204,5 +204,12 @@ const nginxConfig = {
     nodeGroup: "bl",
     displayName: "Load Balancer"
 };
+
+if ('${settings.lspEnabled}' == 'true') {
+    nginxConfig.links = [
+        'cp5:lsp'
+    ]
+}
+
 resp.nodes.push(nginxConfig);
 return resp;
