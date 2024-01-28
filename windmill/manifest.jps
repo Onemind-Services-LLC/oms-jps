@@ -34,8 +34,12 @@ actions:
 
   createDb:
     - cmd[${nodes.sqldb.master.id}]: |-
+        wget https://raw.githubusercontent.com/windmill-labs/windmill/main/init-db-as-superuser.sql -O /tmp/init-db-as-superuser.sql
+        psql -U webadmin -d postgres -f /tmp/init-db-as-superuser.sql
         psql -U webadmin -d postgres -c "CREATE DATABASE windmill;"
         psql -U webadmin -d postgres -c "CREATE USER windmill WITH PASSWORD '${globals.dbPassword}';"
+        psql -U webadmin -d postgres -c "GRANT windmill_admin TO windmill;"
+        psql -U webadmin -d postgres -c "GRANT windmill_user TO windmill;"
         psql -U webadmin -d postgres -c "ALTER DATABASE windmill OWNER TO windmill;"
         psql -U webadmin -d postgres -c "GRANT CREATE ON SCHEMA public TO windmill;"
 
