@@ -28,6 +28,10 @@ const serverConfig = {
     scalingMode: 'STATELESS',
     isSLBAccessEnabled: false,
     nodeGroup: "cp",
+    links: [
+        "pgpool:pgpool",
+        "sqldb:postgresql"
+    ]
 }
 resp.nodes.push(serverConfig);
 
