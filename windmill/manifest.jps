@@ -11,14 +11,32 @@ description:
   short: Developer platform for APIs, critical jobs, workflows, data pipelines and UIs.
 
 logo: https://www.windmill.dev/img/windmill.svg
-baseUrl: https://raw.githubusercontent.com/Onemind-Services-LLC/oms-jps/master
+baseUrl: https://raw.githubusercontent.com/Onemind-Services-LLC/oms-jps/master/windmill
 
 onBeforeInit: /scripts/beforeInit.js?_r=${fn.random}
 onBeforeInstall: /scripts/beforeInstall.js?_r=${fn.random}
 
 globals:
   dbPassword: ${fn.password}
+  userPassword: ${fn.password}
 
 nodes: definedInOnBeforeInstall
+
+onInstall:
+  - addLimits
+  - createDb
+
+actions:
+  addLimits:
+    - env.control.ApplyNodeGroupData [bl, cp, sqldb]:
+        data:
+          isRequired: true
+
+  createDb:
+    - cmd[${nodes.sqldb.master.id}]: |-
+        psql -U webadmin -d postgres -c "CREATE DATABASE windmill;"
+        psql -U webadmin -d postgres -c "CREATE USER windmill WITH PASSWORD '${globals.dbPassword}';"
+        psql -U webadmin -d postgres -c "ALTER DATABASE windmill OWNER TO windmill;"
+        psql -U webadmin -d postgres -c "GRANT CREATE ON SCHEMA public TO windmill;"
 
 success: /texts/success.md?_r=${fn.random}

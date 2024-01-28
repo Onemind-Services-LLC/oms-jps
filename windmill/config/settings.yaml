@@ -14,7 +14,40 @@ fields:
     type: spinner
     caption: Database Disk Size
     tooltip: Size of the database disk in GB
-    default: 10
+    default: 100
     required: true
     editable: true
     min: 1
+
+  - name: workerDefault
+    type: spinner
+    caption: Default Worker
+    tooltip: The default worker group is the one that will execute jobs with any tags except the native ones.
+    default: 1
+    required: true
+    editable: true
+    min: 1
+
+  - name: workerNative
+    type: spinner
+    caption: Native Worker
+    tooltip: The native worker group is the one that will execute jobs with the native tags.
+    default: 1
+    required: true
+    editable: true
+    min: 1
+
+  - name: workerReport
+    type: spinner
+    caption: Report Worker
+    tooltip: The report worker group is the one that will execute jobs with the report tags.
+    default: 1
+    required: true
+    editable: true
+    min: 1
+
+  - name: lsp
+    type: checkbox
+    caption: Enable LSP
+    tooltip: Enable Language Server Protocol for code completion.
+    default: true

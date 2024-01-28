@@ -5,6 +5,23 @@ var resp = {
 
 const isProd = '${settings.deploymentType}' == 'production';
 const nodeCount = isProd ? 2 : 1;
+const DB_HOST = isProd ? "pgpool" : "postgresql";
+const DB_PASSWORD = '${globals.dbPassword}';
+const DATABASE_URL = `postgres://windmill:${DB_PASSWORD}@${DB_HOST}:5432/windmill`;
+
+// Server node configuration
+const serverConfig = {
+    nodeType: "docker",
+    displayName: "Server",
+    count: nodeCount,
+    env: {
+        BASE_URL: ${jps.env.url},
+        DATABASE_URL: DATABASE_URL,
+        MODE: "server",
+        JSON_FMT: "true",
+    }
+}
+resp.nodes.push(serverConfig);
 
 // PostgreSQL node configuration
 const pgsqlConfig = {
@@ -18,7 +35,7 @@ const pgsqlConfig = {
     displayName: isProd ? "PostgreSQL Cluster" : "PostgreSQL"
 };
 if (isProd) {
-    pgsqlConfig.cluster = { is_pgpool2: true };
+    pgsqlConfig.cluster = {is_pgpool2: true};
 }
 resp.nodes.push(pgsqlConfig);
 

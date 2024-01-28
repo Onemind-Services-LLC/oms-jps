@@ -1,1 +1,1 @@
-Access URL: ${env.url}
+Access URL: ${env.url}/user/login?email=${user.email}&password=${globals.userPassword}
