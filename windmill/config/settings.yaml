@@ -46,7 +46,7 @@ fields:
     editable: true
     min: 1
 
-  - name: lsp
+  - name: lspEnabled
     type: checkbox
     caption: Enable LSP
     tooltip: Enable Language Server Protocol for code completion.

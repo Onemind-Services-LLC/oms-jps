@@ -12,6 +12,7 @@ const DOCKER_REGISTRY = "ghcr.io";
 const DOCKER_USER = "windmill-labs";
 const DOCKER_TAG = "1.254";
 const DOCKER_IMAGE = DOCKER_REGISTRY + "/" + DOCKER_USER + "/windmill:" + DOCKER_TAG;
+const DOCKER_IMAGE_LSP = DOCKER_REGISTRY + "/" + DOCKER_USER + "/windmill-lsp:" + DOCKER_TAG;
 const CP_LINKS = [
     "pgpool:pgpool",
     "sqldb:postgresql"
@@ -94,6 +95,28 @@ const reportWorkerConfig = {
     links: CP_LINKS
 };
 resp.nodes.push(reportWorkerConfig);
+
+// LSP node configuration
+if ('${settings.lspEnabled}' == 'true') {
+    const lspConfig = {
+        nodeType: "docker",
+        displayName: "LSP",
+        count: 1,
+        env: {
+            JELASTIC_EXPOSE: "3001",
+        },
+        image: DOCKER_IMAGE_LSP,
+        cloudlets: 8,
+        diskLimit: 10,
+        scalingMode: 'STATELESS',
+        isSLBAccessEnabled: false,
+        nodeGroup: "cp5",
+        volumes: [
+            "/root/.cache"
+        ]
+    };
+    resp.nodes.push(lspConfig);
+}
 
 // PostgreSQL node configuration
 const pgsqlConfig = {
