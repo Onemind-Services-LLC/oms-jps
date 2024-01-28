@@ -65,7 +65,7 @@ actions:
           targetPath: /tmp/bl-lsp.conf
 
     - cmd[bl]: |-
-        sed -i '/location \/ {/e cat /tmp/bl-lsp.conf' nginx.conf
+        sed -i '/location \/ {/e cat /tmp/bl-lsp.conf' /etc/nginx/nginx-jelastic.conf
 
     - restartContainers:
         nodeGroup: bl
