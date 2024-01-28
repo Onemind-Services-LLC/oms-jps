@@ -15,7 +15,7 @@ const serverConfig = {
     displayName: "Server",
     count: nodeCount,
     env: {
-        BASE_URL: ${jps.env.url},
+        BASE_URL: '${env.url}',
         DATABASE_URL: DATABASE_URL,
         MODE: "server",
         JSON_FMT: "true",
