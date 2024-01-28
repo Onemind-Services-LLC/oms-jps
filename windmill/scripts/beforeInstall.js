@@ -161,7 +161,7 @@ const pgsqlConfig = {
     count: isProd ? 2 : 1,
     cloudlets: isProd ? 16 : 32,
     diskLimit: `${settings.dbDiskLimit}`,
-    scalingMode: isProd ? "STATELESS" : "STATEFUL",
+    scalingMode: "STATELESS",
     isSLBAccessEnabled: false,
     nodeGroup: "sqldb",
     displayName: isProd ? "PostgreSQL Cluster" : "PostgreSQL"
