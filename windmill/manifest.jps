@@ -30,6 +30,8 @@ onInstall:
           cpAllNodeIds: ${@i.id}${this.sep:}${this.cpAllNodeIds:}
           sep: ','
   - env.control.ExecDockerRunCmd [${this.cpAllNodeIds}]
+  - cmd[${nodes.cp.master.id}]: |-
+      while ! curl -s http://localhost:8000; do sleep 1; done
 
 actions:
   addLimits:

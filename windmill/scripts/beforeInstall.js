@@ -178,7 +178,7 @@ const storageConfig = {
     restartDelay: 30,
     cloudlets: 8,
     diskLimit: `${settings.storageDiskLimit}`,
-    scalingMode: "STATEFUL",
+    scalingMode: "STATELESS",
     isSLBAccessEnabled: false,
     nodeGroup: "storage",
     displayName: "Storage"
