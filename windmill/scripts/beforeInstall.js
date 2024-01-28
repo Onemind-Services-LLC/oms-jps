@@ -34,7 +34,8 @@ const serverConfig = {
     scalingMode: 'STATELESS',
     isSLBAccessEnabled: false,
     nodeGroup: "cp",
-    links: CP_LINKS
+    links: CP_LINKS,
+    startServiceOnCreation: false
 }
 resp.nodes.push(serverConfig);
 
@@ -54,7 +55,8 @@ const defaultWorkerConfig = {
     scalingMode: 'STATELESS',
     isSLBAccessEnabled: false,
     nodeGroup: "cp2",
-    links: CP_LINKS
+    links: CP_LINKS,
+    startServiceOnCreation: false
 };
 resp.nodes.push(defaultWorkerConfig);
 
@@ -73,7 +75,8 @@ const nativeWorkerConfig = {
     scalingMode: 'STATELESS',
     isSLBAccessEnabled: false,
     nodeGroup: "cp3",
-    links: CP_LINKS
+    links: CP_LINKS,
+    startServiceOnCreation: false
 };
 resp.nodes.push(nativeWorkerConfig);
 
@@ -92,7 +95,8 @@ const reportWorkerConfig = {
     scalingMode: 'STATELESS',
     isSLBAccessEnabled: false,
     nodeGroup: "cp4",
-    links: CP_LINKS
+    links: CP_LINKS,
+    startServiceOnCreation: false
 };
 resp.nodes.push(reportWorkerConfig);
 

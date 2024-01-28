@@ -24,6 +24,7 @@ nodes: definedInOnBeforeInstall
 onInstall:
   - addLimits
   - createDb
+  - env.control.ExecDockerRunCmd [cp, cp2, cp3, cp4]
 
 actions:
   addLimits:
