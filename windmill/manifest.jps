@@ -29,9 +29,23 @@ onInstall:
         set:
           cpAllNodeIds: ${@i.id}${this.sep:}${this.cpAllNodeIds:}
           sep: ','
+  - env.control.AddContainerEnvVars[${this.cpAllNodeIds}]:
+      vars:
+        BASE_URL: ${env.url}
   - env.control.ExecDockerRunCmd [${this.cpAllNodeIds}]
   - cmd[${nodes.cp.master.id}]: |-
-      while ! curl -s http://localhost:8000; do sleep 1; done
+      retries=0
+      max_retries=12
+      while [[ "$(curl -s -o /dev/null -w '%{http_code}' ${BASE_URL})" != "200" ]]; do
+        echo "Attempt $((retries + 1)) failed, retrying in 5 seconds..."
+        sleep 5
+        ((retries++))
+        if [[ $retries -eq $max_retries ]]; then
+          echo "Max retries reached. Exiting."
+          break
+        fi
+      done
+
   - nginxConfig
 
 actions:
@@ -64,8 +78,10 @@ actions:
           sourcePath: ${baseUrl}/config/bl-lsp.conf
           targetPath: /tmp/bl-lsp.conf
 
-    - cmd[bl]: |-
-        sed -i '/location \/ {/e cat /tmp/bl-lsp.conf' /etc/nginx/nginx-jelastic.conf
+    - cmd:
+        - sed -i '/location \/ {/e cat /tmp/bl-lsp.conf' /etc/nginx/nginx-jelastic.conf
+      nodeGroup: bl
+      user: root
 
     - restartContainers:
         nodeGroup: bl

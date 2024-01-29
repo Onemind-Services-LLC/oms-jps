@@ -210,6 +210,6 @@ if ('${settings.lspEnabled}' == 'true') {
         'cp5:lsp'
     ]
 }
-
 resp.nodes.push(nginxConfig);
+resp.ssl = true;
 return resp;
