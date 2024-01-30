@@ -46,6 +46,7 @@ const defaultWorkerConfig = {
     env: {
         DATABASE_URL: DATABASE_URL,
         MODE: "worker",
+        WORKER_GROUP: "default",
         JSON_FMT: "true",
     },
     image: DOCKER_IMAGE,
@@ -77,6 +78,7 @@ const nativeWorkerConfig = {
     env: {
         DATABASE_URL: DATABASE_URL,
         MODE: "worker",
+        WORKER_GROUP: "native",
         JSON_FMT: "false",
     },
     image: DOCKER_IMAGE,
@@ -107,7 +109,8 @@ const reportWorkerConfig = {
     count: '${settings.workerReport}',
     env: {
         DATABASE_URL: DATABASE_URL,
-        MODE: "report",
+        MODE: "worker",
+        WORKER_GROUP: "reports",
         JSON_FMT: "true",
     },
     image: DOCKER_IMAGE,
