@@ -72,7 +72,7 @@ actions:
           - pattern: large_client_header_buffers [0-9]* [0-9]*k;
             replacement: large_client_header_buffers 4 64k;
 
-    - cmd[bl]: |
+    - cmd[bl]: |-
         wget '${baseUrl}/config/bl-lsp.conf' -O /tmp/bl-lsp.conf
         sed -i '/location \/ {/e cat /tmp/bl-lsp.conf' /etc/nginx/nginx-jelastic.conf
       user: root
