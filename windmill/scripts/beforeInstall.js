@@ -10,9 +10,8 @@ const DB_PASSWORD = '${globals.dbPassword}';
 const DATABASE_URL = "postgres://windmill:" + DB_PASSWORD + "@" + DB_HOST + ":5432/windmill";
 const DOCKER_REGISTRY = "ghcr.io";
 const DOCKER_USER = "windmill-labs";
-const DOCKER_TAG = "${settings.tag}";
-const DOCKER_IMAGE = DOCKER_REGISTRY + "/" + DOCKER_USER + "/windmill:" + DOCKER_TAG;
-const DOCKER_IMAGE_LSP = DOCKER_REGISTRY + "/" + DOCKER_USER + "/windmill-lsp:" + DOCKER_TAG;
+const DOCKER_IMAGE = DOCKER_REGISTRY + "/" + DOCKER_USER + "/windmill:" + "${settings.tag}";
+const DOCKER_IMAGE_LSP = DOCKER_REGISTRY + "/" + DOCKER_USER + "/windmill-lsp:" + "${settings.tagLsp}";
 const CP_LINKS = [
     "pgpool:pgpool",
     "sqldb:postgresql"

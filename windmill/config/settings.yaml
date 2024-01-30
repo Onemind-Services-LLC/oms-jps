@@ -69,3 +69,13 @@ fields:
     caption: Enable LSP
     tooltip: Enable Language Server Protocol for code completion.
     default: true
+    showIf:
+      true:
+        - name: tagLsp
+          type: dockertags
+          caption: Version
+          tooltip: Version of Windmill LSP to install
+          required: true
+          image:
+            registry: ghcr.io
+            name: windmill-labs/windmill-lsp
