@@ -1,6 +1,6 @@
 fields:
   - name: version
-    type: text
+    type: string
     caption: Version
     tooltip: Version of Windmill to install
     required: true
