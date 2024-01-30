@@ -1,4 +1,11 @@
 fields:
+  - name: version
+    type: text
+    caption: Version
+    tooltip: Version of Windmill to install
+    required: true
+    editable: true
+
   - name: deploymentType
     type: list
     caption: Deployment Type
