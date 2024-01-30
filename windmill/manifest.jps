@@ -36,7 +36,7 @@ onInstall:
   - cmd[${nodes.cp.master.id}]: |-
       retries=0
       max_retries=100
-      while [[ "$(curl -s -o /dev/null -w '%{http_code}' ${BASE_URL})" != "200" ]]; do
+      while [[ "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:${DOCKER_EXPOSED_PORT})" != "200" ]]; do
         sleep 5
         ((retries++))
         if [[ $retries -eq $max_retries ]]; then
