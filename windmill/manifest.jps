@@ -33,6 +33,18 @@ onInstall:
       vars:
         BASE_URL: ${env.url}
   - env.control.ExecDockerRunCmd [${this.cpAllNodeIds}]
+  - cmd[${nodes.cp.master.id}]: |-
+      retries=0
+      max_retries=100
+      while [[ "$(curl -s -o /dev/null -w '%{http_code}' ${BASE_URL})" != "200" ]]; do
+        sleep 5
+        ((retries++))
+        if [[ $retries -eq $max_retries ]]; then
+          echo "Max retries reached. Exiting."
+          break
+        fi
+      done
+
   - nginxConfig
 
 actions:
