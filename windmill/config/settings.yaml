@@ -1,11 +1,10 @@
 fields:
-  - type: dockertags
+  - name: tag
+    type: dockertags
     caption: Version
     tooltip: Version of Windmill to install
     required: true
-    image:
-      registry: ghcr.io/windmill-labs/windmill
-      name: tag
+    image: ghcr.io/windmill-labs/windmill
 
   - name: deploymentType
     type: list
