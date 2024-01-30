@@ -4,7 +4,9 @@ fields:
     caption: Version
     tooltip: Version of Windmill to install
     required: true
-    image: ghcr.io/windmill-labs/windmill
+    image:
+      registry: ghcr.io
+      name: windmill-labs/windmill
 
   - name: deploymentType
     type: list
