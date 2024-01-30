@@ -73,7 +73,7 @@ fields:
       true:
         - name: tagLsp
           type: dockertags
-          caption: Version
+          caption: LSP Version
           tooltip: Version of Windmill LSP to install
           required: true
           image:
