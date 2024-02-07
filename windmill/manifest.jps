@@ -74,7 +74,8 @@ actions:
 
     - cmd[bl]: |-
         wget '${baseUrl}/config/bl-lsp.conf' -O /tmp/bl-lsp.conf
-        awk '/location \/ {/ && !done {print; system("cat /tmp/bl-lsp.conf"); done=1; next} 1' /etc/nginx/nginx-jelastic.conf > temp_file && mv temp_file /etc/nginx/nginx-jelastic.conf
+        awk '!done && /location \/ {/ {system("cat /tmp/bl-lsp.conf"); done=1} {print}' /etc/nginx/nginx-jelastic.conf > temp_file && mv temp_file /etc/nginx/nginx-jelastic.conf
+        awk '!done && /location \/ {/ {system("cat /tmp/bl-lsp.conf"); done=1} {print}' /etc/nginx/conf.d/ssl.conf > temp_file && mv temp_file /etc/nginx/conf.d/ssl.conf
       user: root
 
     - restartContainers:
