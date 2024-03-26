@@ -79,7 +79,7 @@ const nativeWorkerConfig = {
         DATABASE_URL: DATABASE_URL,
         MODE: "worker",
         WORKER_GROUP: "native",
-        JSON_FMT: "false",
+        JSON_FMT: "true",
     },
     image: DOCKER_IMAGE,
     volumes: [
@@ -166,7 +166,8 @@ const pgsqlConfig = {
     scalingMode: "STATELESS",
     isSLBAccessEnabled: false,
     nodeGroup: "sqldb",
-    displayName: isProd ? "PostgreSQL Cluster" : "PostgreSQL"
+    displayName: isProd ? "PostgreSQL Cluster" : "PostgreSQL",
+    tag: "15.5"
 };
 if (isProd) {
     pgsqlConfig.cluster = {is_pgpool2: true};
