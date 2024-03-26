@@ -205,7 +205,8 @@ const nginxConfig = {
     scalingMode: isProd ? "STATEFUL" : "STATELESS",
     isSLBAccessEnabled: true,
     nodeGroup: "bl",
-    displayName: "Load Balancer"
+    displayName: "Load Balancer",
+    extip: isProd
 };
 
 if ('${settings.lspEnabled}' == 'true') {
@@ -214,5 +215,5 @@ if ('${settings.lspEnabled}' == 'true') {
     ]
 }
 resp.nodes.push(nginxConfig);
-resp.ssl = true;
+resp.ssl = !isProd;
 return resp;

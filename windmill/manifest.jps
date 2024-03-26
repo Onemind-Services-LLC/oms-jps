@@ -74,7 +74,7 @@ actions:
 
     - cmd[bl]: |-
         wget '${baseUrl}/config/bl-lsp.conf' -O /tmp/bl-lsp.conf
-        awk '!done && /location \/ {/ {system("cat /tmp/bl-lsp.conf"); done=1} {print}' /etc/nginx/conf.d/ssl.conf > temp_file && mv temp_file /etc/nginx/conf.d/ssl.conf
+        awk '!done && /location \/ {/ {system("cat /tmp/bl-lsp.conf"); done=1} {print}' /etc/nginx/conf.d/ssl.conf.disabled > temp_file && mv temp_file /etc/nginx/conf.d/ssl.conf.disabled
       user: root
 
     - restartContainers:
